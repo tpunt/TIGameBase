@@ -57,7 +57,7 @@ public class Parser
 				return new ResultantAction(commandWord, "The command word is not a pre-game command.", true);
 		}
 
-		if(!commandsLibrary.validateCommandSyntax(commandWord, tokens.size()-1))
+		if(!commandsLibrary.validateCommandSyntax(commandWord, tokens.size() - 1))
 			return new ResultantAction(commandWord, "The command syntax is invalid.", true);
 
 		tokens.remove(0);
@@ -65,6 +65,9 @@ public class Parser
 		if(isPreGame) {
 			if(commandWord.equals("help"))
 				commandWord = "pregamehelp";
+
+			if(commandWord.equals("manual"))
+				commandWord = "pregamemanual";
 		}
 
 		try {

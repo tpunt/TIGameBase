@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class ActionsLibrary
 {
-	// fields
+	private CommandsLibrary commandsLibrary;
 
 	public ActionsLibrary()
 	{
-		// nothing to do here at the moment
+		commandsLibrary = CommandsLibrary.getInstance();
 	}
 
 
@@ -20,6 +20,8 @@ public class ActionsLibrary
 			case "pregamehelp":
 				response = preGameHelp();
 				break;
+			case "pregamemanual":
+				response = preGameManual();
 		}
 
 		return response;
@@ -77,6 +79,17 @@ public class ActionsLibrary
 
 	private String preGameHelp()
 	{
-		return "pregame help here.";
+		return "Type 'manual' to view the pregame commands available\n"
+			   + "And use the 'manual command_word_here' command to view details of a specific command";
+	}
+
+	private String preGameManual()
+	{
+		String commands = "Pregame commands:";
+
+		for(String command : commandsLibrary.getPreGameCommands())
+			commands += "\n - " + command;
+
+		return commands;
 	}
 }

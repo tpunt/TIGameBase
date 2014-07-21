@@ -59,7 +59,7 @@ public class GameBase
 					break;
 				}
 
-				if(commandWord.equals("pregamehelp")) {
+				if(commandWord.equals("pregamehelp") || commandWord.equals("pregamemanual")) {
 					System.out.println(result.getResponse());
 					continue;
 				}
