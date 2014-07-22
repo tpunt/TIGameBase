@@ -15,15 +15,16 @@ public class Settings
 	private Settings(String filename)// throws ...
 	{
 		settings = new HashMap<String, String>();
+
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line;
+			String[] setting = new String[2];
 
 			while((line = br.readLine()) != null) {
 				if(line.matches("^\\s*|\\s*;.*"))
 					continue;
 
-				String[] setting = new String[2];
 				setting = line.split("\\s*=\\s*");
 				settings.put(setting[0], setting[1]);
 			}
@@ -35,6 +36,8 @@ public class Settings
 		}catch(IOException e) {
 			System.out.print("e");
 		}
+
+		validateSettings();
 	}
 
 	public static Settings loadSettings(String filename)
@@ -43,6 +46,19 @@ public class Settings
 			instance = new Settings(filename);
 
 		return instance;
+	}
+
+	private void validateSettings()
+	{
+		HashMap<String, String> defaultSettings = new HashMap<String, String>();
+
+		defaultSettings.put("pregame", "true");
+
+		for(String settingName : defaultSettings.keySet()) {
+			if(!settings.containsKey(settingName)) {
+				settings.put(settingName, defaultSettings.get(settingName));
+			}
+		}
 	}
 
 	public HashMap<String, String> getSettings()
