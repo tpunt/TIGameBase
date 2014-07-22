@@ -43,11 +43,11 @@ public class Parser
 		for(String token : command.split("\\s+"))
 			tokens.add(token);
 
-		if(tokens.size() == 0) {
+		if(tokens.size() == 0)
 			return new ResultantAction("", "Empty commands are invalid.", true);
-		}
 
 		commandWord = tokens.get(0);
+		tokens.remove(0);
 
 		if(!commandsLibrary.validateKeyword(commandWord))
 			return new ResultantAction(commandWord, "The command word is invalid.", true);
@@ -57,10 +57,8 @@ public class Parser
 				return new ResultantAction(commandWord, "The command word is not a pre-game command.", true);
 		}
 
-		if(!commandsLibrary.validateCommandSyntax(commandWord, tokens.size() - 1))
-			return new ResultantAction(commandWord, "The command syntax is invalid.", true);
-
-		tokens.remove(0);
+		if(!commandsLibrary.validateCommandSyntax(commandWord, tokens.size()))
+			return new ResultantAction(commandWord, "The command syntax is invalid.1", true);
 
 		if(isPreGame) {
 			if(commandWord.equals("help"))
@@ -75,13 +73,12 @@ public class Parser
 				case 0:
 					return new ResultantAction(commandWord, actionsLibrary.executeCommand(commandWord));
 				case 1:
-					String response = actionsLibrary.executeCommand(commandWord, (String) tokens.get(0));
-					return new ResultantAction(commandWord, response);
+					return new ResultantAction(commandWord, actionsLibrary.executeCommand(commandWord, (String) tokens.get(0)));
 				default:
 					return new ResultantAction(commandWord, actionsLibrary.executeCommand(commandWord, tokens));
 			}
 		}catch(InvalidCommandSyntaxException ICSE) {
-			return new ResultantAction(commandWord, "The syntax for command '" + commandWord + "' is invalid.", true);
+			return new ResultantAction(commandWord, "The command syntax is invalid.2", true);
 		}
 		// put the following in a try...catch block, since command word methods will throw exceptions when something occurs
 		// perform commandWord method invocation and get the response ?
