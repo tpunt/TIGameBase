@@ -112,6 +112,8 @@ public class GameBase
 				break;
 			}
 
+			System.out.println(result.getResponse());
+
 			// other actions
 		}
 	}

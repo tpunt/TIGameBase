@@ -55,10 +55,12 @@ public class Parser
 		if(isPreGame) {
 			if(!commandsLibrary.isPreGameKeyword(commandWord))
 				return new ResultantAction(commandWord, "The command word is not a pre-game command.", true);
+		}else{
+			// check arg to manual command
 		}
 
 		if(!commandsLibrary.validateCommandSyntax(commandWord, tokens.size()))
-			return new ResultantAction(commandWord, "The command syntax is invalid.1", true);
+			return new ResultantAction(commandWord, "The command syntax is invalid (incorrect argument count).", true);
 
 		if(isPreGame) {
 			if(commandWord.equals("help"))
@@ -78,7 +80,7 @@ public class Parser
 					return new ResultantAction(commandWord, actionsLibrary.executeCommand(commandWord, tokens));
 			}
 		}catch(InvalidCommandSyntaxException ICSE) {
-			return new ResultantAction(commandWord, "The command syntax is invalid.2", true);
+			return new ResultantAction(commandWord, "The command syntax is invalid (incorrect use of command).", true);
 		}
 		// put the following in a try...catch block, since command word methods will throw exceptions when something occurs
 		// perform commandWord method invocation and get the response ?

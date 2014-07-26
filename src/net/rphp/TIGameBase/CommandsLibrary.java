@@ -21,6 +21,7 @@ public class CommandsLibrary
 		commandWordsManual.put("quit", "Quit the in-game or pregame mode. Syntax: 'quit'.");
 		commandWordsManual.put("help", "Show help. Syntax: 'help'.");
 		commandWordsManual.put("manual", "Either show all valid commands or view information about a specific command. Syntax: 'manual' or 'manual COMMAND_NAME'.");
+		commandWordsManual.put("in", "Test function. Syntax: 'in game command'.");
 
 		preGameCommandWords.add("new");
 		preGameCommandWords.add("load");
@@ -39,6 +40,7 @@ public class CommandsLibrary
 
 		commandWords.add(new ArrayList<String>());
 		commandWords.get(2).add("load");
+		commandWords.get(2).add("in");
 	}
 
 	public static CommandsLibrary getInstance()
@@ -78,5 +80,15 @@ public class CommandsLibrary
 	public ArrayList<String> getPreGameCommands()
 	{
 		return preGameCommandWords;
+	}
+
+	public ArrayList<ArrayList<String>> getInGameCommands()
+	{
+		return commandWords;
+	}
+
+	public String getManualForCommand(String commandName)
+	{
+		return commandWordsManual.get(commandName);
 	}
 }
