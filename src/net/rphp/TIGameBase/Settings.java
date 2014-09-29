@@ -12,7 +12,7 @@ public class Settings
 	private HashMap<String, String> settings;
 	private static Settings instance = null;
 
-	private Settings(String filename)// throws ...
+	private Settings(String filename)// throws FileNotFoundException, IOException
 	{
 		settings = new HashMap<String, String>();
 
@@ -40,7 +40,7 @@ public class Settings
 		validateSettings();
 	}
 
-	public static Settings loadSettings(String filename)
+	public static Settings loadSettings(String filename)// throws FileNotFoundException, IOException
 	{
 		if(instance == null)
 			instance = new Settings(filename);
@@ -61,8 +61,8 @@ public class Settings
 		}
 	}
 
-	public HashMap<String, String> getSettings()
+	public boolean preGameModeEnabled()
 	{
-		return settings;
+		return (settings.get("pregame").equals("true")) ? true : false;
 	}
 }

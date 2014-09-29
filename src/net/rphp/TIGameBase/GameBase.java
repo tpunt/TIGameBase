@@ -9,7 +9,7 @@ public class GameBase
 	private Parser parser = new Parser();
 	private boolean isPreGame = true;
 	private boolean inGame = false;
-	private HashMap<String, String> settings;
+	private Settings settings;
 
 	public static void main(String[] args)
 	{
@@ -18,7 +18,7 @@ public class GameBase
 
 	public GameBase()
 	{
-		settings = Settings.loadSettings("net/rphp/TIGameBase/settings.ini").getSettings();
+		settings = Settings.loadSettings("net/rphp/TIGameBase/settings.ini");
 
 		System.out.println("Welcome!\r\n");
 
@@ -32,9 +32,10 @@ public class GameBase
 		ResultantAction result;
 		String commandWord;
 
-		if(settings.get("pregame").equals("true")) {
+		if(settings.preGameModeEnabled()) {
+			System.out.println("==Pre Game Mode==");
+			
 			while(isPreGame) {
-				System.out.println("==Pre Game Mode==");
 				System.out.print(">> ");
 
 				try {
