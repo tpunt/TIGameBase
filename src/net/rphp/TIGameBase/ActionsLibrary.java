@@ -4,143 +4,143 @@ import java.util.ArrayList;
 
 public class ActionsLibrary
 {
-	private CommandsLibrary commandsLibrary;
+    private CommandsLibrary commandsLibrary;
 
-	public ActionsLibrary()
-	{
-		commandsLibrary = CommandsLibrary.getInstance();
-	}
+    public ActionsLibrary()
+    {
+        commandsLibrary = CommandsLibrary.getInstance();
+    }
 
 
-	public String executeCommand(String commandWord)
-	{
-		String response = "";
+    public String executeCommand(String commandWord)
+    {
+        String response = "";
 
-		switch(commandWord) {
-			case "pregamehelp":
-				response = preGameHelp();
-				break;
-			case "pregamemanual":
-				response = preGameManual();
-				break;
-			case "manual":
-				response = manual();
-				break;
-		}
+        switch(commandWord) {
+            case "pregamehelp":
+                response = preGameHelp();
+                break;
+            case "pregamemanual":
+                response = preGameManual();
+                break;
+            case "manual":
+                response = manual();
+                break;
+        }
 
-		return response;
-	}
+        return response;
+    }
 
-	public String executeCommand(String commandWord, String parameter) throws InvalidCommandSyntaxException
-	{
-		String response = "";
+    public String executeCommand(String commandWord, String parameter) throws InvalidCommandSyntaxException
+    {
+        String response = "";
 
-		try {
-			switch(commandWord) {
-				case "new":
-					newGame(parameter);
-					break;
-				case "pregamemanual":
-					response = preGameManual(parameter);
-					break;
-				case "manual":
-					response = manual();
-					break;
-			}
-		}catch(InvalidCommandSyntaxException ICSE) {
-			throw new InvalidCommandSyntaxException("The syntax for this command is invalid.", ICSE);
-		}
+        try {
+            switch(commandWord) {
+                case "new":
+                    newGame(parameter);
+                    break;
+                case "pregamemanual":
+                    response = preGameManual(parameter);
+                    break;
+                case "manual":
+                    response = manual();
+                    break;
+            }
+        }catch(InvalidCommandSyntaxException ICSE) {
+            throw new InvalidCommandSyntaxException("The syntax for this command is invalid.", ICSE);
+        }
 
-		return response;
-	}
+        return response;
+    }
 
-	public String executeCommand(String commandWord, ArrayList<String> parameters) throws InvalidCommandSyntaxException
-	{
-		String response = "";
+    public String executeCommand(String commandWord, ArrayList<String> parameters) throws InvalidCommandSyntaxException
+    {
+        String response = "";
 
-		try {
-			switch(commandWord) {
-				case "load":
-					loadGame(parameters);
-					break;
-				case "in":
-					response = in(parameters);
-					break;
-			}
-		}catch(InvalidCommandSyntaxException ICSE) {
-			throw new InvalidCommandSyntaxException("The syntax for this command is invalid.", ICSE);
-		}
+        try {
+            switch(commandWord) {
+                case "load":
+                    loadGame(parameters);
+                    break;
+                case "in":
+                    response = in(parameters);
+                    break;
+            }
+        }catch(InvalidCommandSyntaxException ICSE) {
+            throw new InvalidCommandSyntaxException("The syntax for this command is invalid.", ICSE);
+        }
 
-		return response;
-	}
+        return response;
+    }
 
-	private void newGame(String parameter) throws InvalidCommandSyntaxException
-	{
-		if(!parameter.equals("game")) {
-			throw new InvalidCommandSyntaxException("");
-		}
-	}
+    private void newGame(String parameter) throws InvalidCommandSyntaxException
+    {
+        if(!parameter.equals("game")) {
+            throw new InvalidCommandSyntaxException("");
+        }
+    }
 
-	private void loadGame(ArrayList<String> parameters) throws InvalidCommandSyntaxException
-	{
-		if(!parameters.get(0).equals("game")) {
-			throw new InvalidCommandSyntaxException("");
-		}
+    private void loadGame(ArrayList<String> parameters) throws InvalidCommandSyntaxException
+    {
+        if(!parameters.get(0).equals("game")) {
+            throw new InvalidCommandSyntaxException("");
+        }
 
-		//if(!parameters.get(1).) // matches? validate against file name saves in saves/ directory
-	}
+        //if(!parameters.get(1).) // matches? validate against file name saves in saves/ directory
+    }
 
-	private String preGameHelp()
-	{
-		return "Type 'manual' to view the pregame commands available\n"
-			   + "And use the 'manual command_word_here' command to view details of a specific command";
-	}
+    private String preGameHelp()
+    {
+        return "Type 'manual' to view the pregame commands available\n"
+               + "And use the 'manual command_word_here' command to view details of a specific command";
+    }
 
-	private String preGameManual()
-	{
-		String commands = "Pregame commands:";
+    private String preGameManual()
+    {
+        String commands = "Pregame commands:";
 
-		for(String command : commandsLibrary.getPreGameCommands())
-			commands += "\n - " + command;
+        for(String command : commandsLibrary.getPreGameCommands())
+            commands += "\n - " + command;
 
-		return commands;
-	}
+        return commands;
+    }
 
-	private String preGameManual(String command)
-	{
-		return commandsLibrary.getManualForCommand(command);
-	}
+    private String preGameManual(String command)
+    {
+        return commandsLibrary.getManualForCommand(command);
+    }
 
-	private String manual(String command)
-	{
-		return preGameManual(command);
-	}
+    private String manual(String command)
+    {
+        return preGameManual(command);
+    }
 
-	private String manual()
-	{
-		String commandsMan = "All commands:";
-		int commandArgCount = 0;
+    private String manual()
+    {
+        String commandsMan = "All commands:";
+        int commandArgCount = 0;
 
-		for(ArrayList<String> commands : commandsLibrary.getInGameCommands()) {
-			commandsMan +=  "\n" + commandArgCount + " argument commands";
+        for(ArrayList<String> commands : commandsLibrary.getInGameCommands()) {
+            commandsMan +=  "\n" + commandArgCount + " argument commands";
 
-			for(String command : commands) {
-				commandsMan += "\n - " + command;
-			}
-			++commandArgCount;
-		}
+            for(String command : commands) {
+                commandsMan += "\n - " + command;
+            }
+            ++commandArgCount;
+        }
 
-		return commandsMan;
-	}
+        return commandsMan;
+    }
 
-	private String in(ArrayList<String> arguments) throws InvalidCommandSyntaxException
-	{
-		if(!arguments.get(0).equals("game"))
-			throw new InvalidCommandSyntaxException("");
-		
-		if(!arguments.get(1).equals("command"))
-			throw new InvalidCommandSyntaxException("");
+    private String in(ArrayList<String> arguments) throws InvalidCommandSyntaxException
+    {
+        if(!arguments.get(0).equals("game"))
+            throw new InvalidCommandSyntaxException("");
+        
+        if(!arguments.get(1).equals("command"))
+            throw new InvalidCommandSyntaxException("");
 
-		return "in game command test";
-	}
+        return "in game command test";
+    }
 }
