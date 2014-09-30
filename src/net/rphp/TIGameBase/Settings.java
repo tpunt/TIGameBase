@@ -12,6 +12,10 @@ public class Settings
     private HashMap<String, String> settings;
     private static Settings instance = null;
 
+    /**
+     * Parse the settings file and populate the settings hashmap with the values.
+     * Also validate the settings and set sensible defaults if there are any unset settings.
+     */
     private Settings(String filename)// throws FileNotFoundException, IOException
     {
         settings = new HashMap<String, String>();
@@ -40,6 +44,11 @@ public class Settings
         validateSettings();
     }
 
+    /**
+     * Uses a Singleton to ensure the settings are only loaded and validated once
+     *
+     * @return 	An instance of Settings
+     */
     public static Settings loadSettings(String filename)// throws FileNotFoundException, IOException
     {
         if(instance == null)
@@ -48,6 +57,9 @@ public class Settings
         return instance;
     }
 
+    /**
+     * Goes through all the settings to ensure that they're set to a value
+     */
     private void validateSettings()
     {
         HashMap<String, String> defaultSettings = new HashMap<String, String>();
@@ -61,6 +73,11 @@ public class Settings
         }
     }
 
+    /**
+     * Check the pregame mode setting to see if it is enabled
+     *
+     * @return	whether the pregame mode is enabled or not
+     */
     public boolean preGameModeEnabled()
     {
         return (settings.get("pregame").equals("true")) ? true : false;
