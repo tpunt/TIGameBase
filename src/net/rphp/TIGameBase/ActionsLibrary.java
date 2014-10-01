@@ -2,16 +2,28 @@ package net.rphp.TIGameBase;
 
 import java.util.ArrayList;
 
+/**
+ * This class contains the methods that will be invoked depending upon the
+ * input command. It will validate multi-word commands and pass invalid syntax
+ * exceptions up the invocation chain to be handled by
+ */
 public class ActionsLibrary
 {
     private CommandsLibrary commandsLibrary;
 
+    /**
+     * Get an instance of the CommandsLibrary class
+     */
     public ActionsLibrary()
     {
         commandsLibrary = CommandsLibrary.getInstance();
     }
 
-
+    /**
+     * Executes the corresponding method to the command word and return the response.
+     *
+     * @return	the response from the method of the command word.
+     */
     public String executeCommand(String commandWord)
     {
         String response = "";
@@ -31,6 +43,14 @@ public class ActionsLibrary
         return response;
     }
 
+    /**
+     * Passes the command word argument to the corresponding command word method
+     * and returns the response. If an exception is thrown from one of the executed
+     * methods, it will bubble up the execution chain to be handled by the ActionsLibrary
+     * calling code.
+     *
+     * @return 	the response from the method of the command word.
+     */
     public String executeCommand(String commandWord, String parameter) throws InvalidCommandSyntaxException
     {
         String response = "";
@@ -54,6 +74,14 @@ public class ActionsLibrary
         return response;
     }
 
+    /**
+     * Passes the command word arguments to the corresponding command word method
+     * and returns the response. If an exception is thrown from one of the executed
+     * methods, it will bubble up the execution chain to be handled by the ActionsLibrary
+     * calling code.
+     *
+     * @return 	the response from the method of the command word.
+     */
     public String executeCommand(String commandWord, ArrayList<String> parameters) throws InvalidCommandSyntaxException
     {
         String response = "";
@@ -74,6 +102,9 @@ public class ActionsLibrary
         return response;
     }
 
+    /**
+     * validate the 'new game' command to ensure it contains no syntax errors.
+     */
     private void newGame(String parameter) throws InvalidCommandSyntaxException
     {
         if(!parameter.equals("game")) {
@@ -81,6 +112,9 @@ public class ActionsLibrary
         }
     }
 
+    /**
+     * validate the 'load game' command to ensure it contains no syntax errors.
+     */
     private void loadGame(ArrayList<String> parameters) throws InvalidCommandSyntaxException
     {
         if(!parameters.get(0).equals("game")) {
@@ -90,12 +124,23 @@ public class ActionsLibrary
         //if(!parameters.get(1).) // matches? validate against file name saves in saves/ directory
     }
 
+    /**
+     * Generates a message when the 'help' command is used in pregame mode.
+     *
+     * @return 	a string providing help in pregame mode
+     */
     private String preGameHelp()
     {
         return "Type 'manual' to view the pregame commands available\n"
                + "And use the 'manual command_word_here' command to view details of a specific command";
     }
 
+    /**
+     * Generates a message when 'manual' is typed in pregame mode containing all
+     * commands available to pregame mode
+     *
+     * @return 	a string of all pregame commands available
+     */
     private String preGameManual()
     {
         String commands = "Pregame commands:";
@@ -106,16 +151,31 @@ public class ActionsLibrary
         return commands;
     }
 
+    /**
+     * Searches and returns the string description of the command specified.
+     *
+     * @return 	the command description
+     */
     private String preGameManual(String command)
     {
         return commandsLibrary.getManualForCommand(command);
     }
 
+    /**
+     * Searches and returns the string description of the command specified.
+     *
+     * @return 	the command description
+     */
     private String manual(String command)
     {
         return preGameManual(command);
     }
 
+    /**
+     * Generates a string containing all in-game commands, including their argument count.
+     *
+     * @return 	a string containing every in-game command
+     */
     private String manual()
     {
         String commandsMan = "All commands:";

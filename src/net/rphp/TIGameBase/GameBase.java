@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This is the opening class to the game base. It loads the Parser to take the
+ * input commands and uses the options loaded from the settings.ini file to change
+ * the game base's behaviour.
+ */
 public class GameBase
 {
     private Parser parser = new Parser();
@@ -16,6 +21,9 @@ public class GameBase
         GameBase gameBase = new GameBase();
     }
 
+    /**
+     * Load the Settings object and invoke the preGameMode method.
+     */
     public GameBase()
     {
         settings = Settings.loadSettings("net/rphp/TIGameBase/settings.ini");
@@ -25,6 +33,10 @@ public class GameBase
         preGameMode();
     }
 
+    /**
+     * Enter the pregame mode, or skip to in-game mode if the `pregame` setting
+     * is set to 'false'.
+     */
     private void preGameMode()
     {
         String userInputCommand;
@@ -80,6 +92,9 @@ public class GameBase
         }
     }
 
+    /**
+     * Enter the in-game mode.
+     */
     private void inGameMode()
     {
         String userInputCommand;

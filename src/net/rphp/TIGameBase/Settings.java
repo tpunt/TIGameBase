@@ -7,6 +7,11 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * This class parses the settings file and loads them into memory. It will then
+ * validate the settings, and set sensible defaults if any settings are either
+ * missing or have invalid values.
+ */
 public class Settings
 {
     private HashMap<String, String> settings;

@@ -5,6 +5,10 @@ import java.io.BufferedReader; // reads one line at a time and translates the ra
 import java.io.IOException; // required for the readLine() method in the BufferedReader class
 import java.util.ArrayList;
 
+/**
+ * This class is used to get the user input, parse it, and return the
+ * resultant action via a ResultantAction object.
+ */
 public class Parser
 {
     private CommandsLibrary commandsLibrary;
@@ -15,8 +19,10 @@ public class Parser
         commandsLibrary = CommandsLibrary.getInstance();
     }
 
-    /*
-     * Why is the Parser class getting the user input?
+    /**
+     * Take in the user input and return it in lowercase.
+     *
+     * @return 	the user input in lowercase
      */
     public String getUserInput() throws IOException
     {
@@ -32,6 +38,12 @@ public class Parser
         return inputLine.toLowerCase();
     }
 
+    /**
+     * Perform basic validate upon the input command. If the command is valid, execute
+     * its corresponding method from ActionsLibrary.
+     *
+     * @return	A ResultantAction object from either a command method invocation, exception thrown, or validation error.
+     */
     public ResultantAction parseCommand(String command, boolean isPreGame)
     {
         ArrayList<String> tokens = new ArrayList<String>();
