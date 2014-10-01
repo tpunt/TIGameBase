@@ -158,7 +158,7 @@ public class ActionsLibrary
      */
     private String preGameManual(String command)
     {
-        return commandsLibrary.getManualForCommand(command);
+        return manual(command);
     }
 
     /**
@@ -168,7 +168,7 @@ public class ActionsLibrary
      */
     private String manual(String command)
     {
-        return preGameManual(command);
+        return commandsLibrary.getManualForCommand(command);
     }
 
     /**
