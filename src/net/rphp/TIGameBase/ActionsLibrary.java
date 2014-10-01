@@ -91,9 +91,6 @@ public class ActionsLibrary
                 case "load":
                     loadGame(parameters);
                     break;
-                case "in":
-                    response = in(parameters);
-                    break;
             }
         }catch(InvalidCommandSyntaxException ICSE) {
             throw new InvalidCommandSyntaxException("The syntax for this command is invalid.", ICSE);
