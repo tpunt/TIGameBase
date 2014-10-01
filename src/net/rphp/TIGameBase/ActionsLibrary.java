@@ -192,15 +192,4 @@ public class ActionsLibrary
 
         return commandsMan;
     }
-
-    private String in(ArrayList<String> arguments) throws InvalidCommandSyntaxException
-    {
-        if(!arguments.get(0).equals("game"))
-            throw new InvalidCommandSyntaxException("");
-        
-        if(!arguments.get(1).equals("command"))
-            throw new InvalidCommandSyntaxException("");
-
-        return "in game command test";
-    }
 }
